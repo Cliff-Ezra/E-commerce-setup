@@ -1,3 +1,4 @@
+import createPost from "@/server/actions/create-post";
 import getPosts from "@/server/actions/get-posts";
 import { posts } from "@/server/schema";
 import Image from "next/image";
@@ -18,6 +19,15 @@ export default async function Home() {
             <h2>{posts.title}</h2>
           </div>
         ))}
+        <form action={createPost}>
+          <input
+            className="bg-black"
+            type="text"
+            name="title"
+            placeholder="Title"
+          />
+          <button type="submit">Submit</button>
+        </form>
         <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
       </main>
     );
