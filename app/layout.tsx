@@ -18,19 +18,7 @@ export default function RootLayout({
   const isAdmin = true;
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <nav>
-          <ul className="flex gap-2 justify-between px-4 bg-blue-700">
-            <li>
-              <Link href={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link href={"/about"}>About</Link>
-            </li>
-          </ul>
-        </nav>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
