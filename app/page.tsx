@@ -2,6 +2,7 @@ import createPost from "@/server/actions/create-post";
 import getPosts from "@/server/actions/get-posts";
 import { posts } from "@/server/schema";
 import Image from "next/image";
+import PostButton from "./components/post-button";
 
 // export const dynamic = "force-dynamic"
 
@@ -26,7 +27,7 @@ export default async function Home() {
             name="title"
             placeholder="Title"
           />
-          <button type="submit">Submit</button>
+          <PostButton />
         </form>
         <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
       </main>
