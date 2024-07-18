@@ -9,14 +9,18 @@ export default async function Nav() {
   //   console.log(session);
 
   return (
-    <header className="py-8">
+    <header className="bg-slate-500 py-4">
       <nav>
         <ul className="flex justify-between px-6">
           <li>Logo</li>
           {!session ? (
             <li>
               <Button asChild>
-                <Link href="/auth/login" className="flex gap-2">
+                <Link
+                  aria-label="sign-in"
+                  href="/auth/login"
+                  className="flex gap-2"
+                >
                   <LogIn size={16} />
                   <span>Login</span>
                 </Link>
