@@ -15,6 +15,13 @@
       "when": 1721134983896,
       "tag": "0001_burly_sunfire",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1721377699002,
+      "tag": "0002_chilly_blue_marvel",
+      "breakpoints": true
     }
   ]
 }
