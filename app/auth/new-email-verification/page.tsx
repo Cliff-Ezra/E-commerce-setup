@@ -1,6 +1,5 @@
-export default function getBaseURL() {
-  if (typeof window !== "undefined") return "";
+import { EmailVerificationForm } from "@/components/auth/email-verification-form";
 
-  if (process.env.VERCEL_URL) return `https://${process.env.DOMAIN_URL}`;
-  ("http://localhost:3000");
+export default function EmailVerification() {
+  return <EmailVerificationForm />;
 }
