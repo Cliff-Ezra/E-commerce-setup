@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,17 +10,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { AuthCard } from "./auth-card";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema } from "@/types/login-schema";
-import * as z from "zod";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { emailSignIn } from "@/server/actions/email-signin";
-import { useAction } from "next-safe-action/hooks";
 import { cn } from "@/lib/utils";
+import { emailSignIn } from "@/server/actions/email-signin";
+import { LoginSchema } from "@/types/login-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
+import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { AuthCard } from "./auth-card";
+import { FormError } from "./form-error";
+import { FormSuccess } from "./form-success";
 
 export const LoginForm = () => {
   const form = useForm({
@@ -32,10 +34,12 @@ export const LoginForm = () => {
   });
 
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const { execute, status } = useAction(emailSignIn, {
     onSuccess(data) {
-      console.log(data);
+      if (data?.error) setError(data.error);
+      if (data?.success) setSuccess(data.success);
     },
   });
 
@@ -92,6 +96,8 @@ export const LoginForm = () => {
                   </FormItem>
                 )}
               />
+              <FormSuccess message={success} />
+              <FormError message={error} />
               <Button size={"sm"} variant={"link"} asChild>
                 <Link href={"/auth/reset"}>Forgot your password</Link>
               </Button>
