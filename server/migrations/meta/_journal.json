@@ -57,6 +57,13 @@
       "when": 1721731227182,
       "tag": "0007_rapid_raza",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1721850786878,
+      "tag": "0008_public_fenris",
+      "breakpoints": true
     }
   ]
 }
