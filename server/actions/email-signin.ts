@@ -34,7 +34,7 @@ export const emailSignIn = action(
           verificationToken[0].email,
           verificationToken[0].token
         );
-        return { success: "Confirmation Email Sent!" };
+        return { success: "Confirmation Email Sent! Confirm your email to Sign in" };
       }
 
       await signIn("credentials", { email, password, redirectTo: "/" });
