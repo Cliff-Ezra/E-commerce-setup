@@ -7,6 +7,7 @@ import { createSafeActionClient } from "next-safe-action";
 import { db } from "..";
 import { users } from "../schema";
 import { generateEmailVerificationToken } from "./tokens";
+import { sendVerificationEmail } from "./email";
 
 const action = createSafeActionClient();
 
@@ -25,7 +26,10 @@ export const emailRegister = action(
     if (existingUser) {
       if (!existingUser.emailVerified) {
         const verificationToken = await generateEmailVerificationToken(email);
-        //   await sendVerificationEmail()
+        await sendVerificationEmail(
+          verificationToken[0].email,
+          verificationToken[0].token
+        );
 
         return { success: "Email confirmation resent" };
       }
@@ -41,7 +45,10 @@ export const emailRegister = action(
 
     const verificationToken = await generateEmailVerificationToken(email);
 
-    // await sendVerificationEmail();
+    await sendVerificationEmail(
+      verificationToken[0].email,
+      verificationToken[0].token
+    );
 
     return { success: "Confirmation Email Sent!" };
   }
