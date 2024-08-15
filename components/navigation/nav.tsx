@@ -7,14 +7,13 @@ import Logo from "@/components/navigation/logo";
 
 export default async function Nav() {
   const session = await auth();
-  //   console.log(session);
 
   return (
     <header className="py-8">
       <nav>
-        <ul className="flex justify-between px-6">
+        <ul className="flex justify-between items-center">
           <li>
-            <Link href="/">
+            <Link href="/" aria-label="website logo">
               <Logo />
             </Link>
           </li>
