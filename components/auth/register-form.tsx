@@ -72,6 +72,7 @@ export const RegisterForm = () => {
                         {...field}
                         placeholder="John"
                         type="text"
+                        disabled={status === "executing"}
                         autoComplete="given-name"
                       />
                     </FormControl>
@@ -91,6 +92,7 @@ export const RegisterForm = () => {
                         {...field}
                         placeholder="Doe"
                         type="text"
+                        disabled={status === "executing"}
                         autoComplete="family-name"
                       />
                     </FormControl>
@@ -110,6 +112,7 @@ export const RegisterForm = () => {
                         {...field}
                         placeholder="user@gmail.com"
                         type="email"
+                        disabled={status === "executing"}
                         autoComplete="email"
                       />
                     </FormControl>
@@ -129,6 +132,7 @@ export const RegisterForm = () => {
                         {...field}
                         placeholder="+254712345678"
                         type="tel"
+                        disabled={status === "executing"}
                         autoComplete="tel"
                       />
                     </FormControl>
@@ -148,6 +152,7 @@ export const RegisterForm = () => {
                         {...field}
                         placeholder="******"
                         type="password"
+                        disabled={status === "executing"}
                         autoComplete="new-password"
                       />
                     </FormControl>
