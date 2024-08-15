@@ -74,14 +74,14 @@ export const UserButton = ({ user }: Session) => {
           <DropdownMenuItem className="group py-2 font-medium cursor-pointer transition-all duration-500 ease-in-out">
             <TruckIcon
               size={14}
-              className="mr-3 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+              className="mr-3 group-hover:translate-x-1 ease-in-out"
             />
             My orders
           </DropdownMenuItem>
           <DropdownMenuItem className="group py-2 font-medium cursor-pointer transition-all duration-500 ease-in-out">
             <SettingsIcon
               size={14}
-              className="mr-3 group-hover:rotate-180 transition-all duration-300 ease-in-out"
+              className="mr-3 group-hover:rotate-180 ease-in-out"
             />
             Settings
           </DropdownMenuItem>
@@ -123,7 +123,7 @@ export const UserButton = ({ user }: Session) => {
           >
             <LogOutIcon
               size={14}
-              className="mr-3 group-hover:scale-75 transition-all duration-300 ease-in-out"
+              className="mr-3 group-hover:scale-75 ease-in-out"
             />
             Sign out
           </DropdownMenuItem>
