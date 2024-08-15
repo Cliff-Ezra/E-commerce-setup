@@ -109,7 +109,6 @@ export const UserButton = ({ user }: Session) => {
                   checked={checked}
                   onCheckedChange={(e) => {
                     setChecked((prev) => !prev);
-                    console.log(e);
                     if (e) setTheme("dark");
                     if (!e) setTheme("light");
                   }}
