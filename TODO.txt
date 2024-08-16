@@ -2,3 +2,4 @@ Quality of Life Improvement Checklist
 -- Authentication
 [] Make password field viewable
 [] Add confirm password field
+[] Add phone number OTP verification
