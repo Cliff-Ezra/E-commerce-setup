@@ -69,6 +69,7 @@ export const LoginForm = () => {
                         {...field}
                         placeholder="user@gmail.com"
                         type="email"
+                        disabled={status === "executing"}
                         autoComplete="email"
                       />
                     </FormControl>
@@ -88,6 +89,7 @@ export const LoginForm = () => {
                         {...field}
                         placeholder="******"
                         type="password"
+                        disabled={status === "executing"}
                         autoComplete="current-password"
                       />
                     </FormControl>
