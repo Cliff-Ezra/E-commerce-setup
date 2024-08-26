@@ -7,6 +7,7 @@ import { db } from "..";
 import { users } from "../schema";
 import { eq } from "drizzle-orm";
 import { EmailResetTemplate } from "@/components/auth/password-email-template";
+import { EmailTwoFactorTemplate } from "@/components/auth/email-two-factor-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const domain = getBaseURL();
@@ -46,5 +47,26 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   });
 
   if (error) return console.log(error);
+  if (data) return data;
+};
+
+export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
+  // Find the user created in the DB
+  const existingUser = await db.query.users.findFirst({
+    where: eq(users.email, email),
+  });
+
+  const userName = existingUser?.name || "User";
+
+  const { data, error } = await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: email,
+    subject: "E-Commerce - Your Two Factor Token",
+    text: "",
+    react: EmailTwoFactorTemplate({ userName, token }),
+  });
+
+  if (error) return { error };
+
   if (data) return data;
 };

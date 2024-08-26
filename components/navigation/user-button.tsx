@@ -21,8 +21,10 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useState } from "react";
 import { Switch } from "../ui/switch";
+import { useRouter } from "next/navigation";
 
 export const UserButton = ({ user }: Session) => {
+  const router = useRouter();
   const { setTheme, theme } = useTheme();
   const [checked, setChecked] = useState(false);
 
@@ -71,17 +73,23 @@ export const UserButton = ({ user }: Session) => {
             </span>
           </div>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="group py-2 font-medium cursor-pointer transition-all duration-500 ease-in-out">
+          <DropdownMenuItem
+            onClick={() => router.push("/dashboard/orders")}
+            className="group py-2 font-medium cursor-pointer transition-all duration-500 ease-in-out"
+          >
             <TruckIcon
               size={14}
               className="mr-3 group-hover:translate-x-1 ease-in-out"
             />
             My orders
           </DropdownMenuItem>
-          <DropdownMenuItem className="group py-2 font-medium cursor-pointer transition-all duration-500 ease-in-out">
+          <DropdownMenuItem
+            onClick={() => router.push("/dashboard/settings")}
+            className="group py-2 font-medium cursor-pointer  ease-in-out "
+          >
             <SettingsIcon
               size={14}
-              className="mr-3 group-hover:rotate-180 ease-in-out"
+              className="mr-3 group-hover:rotate-180 transition-all duration-300 ease-in-out"
             />
             Settings
           </DropdownMenuItem>
