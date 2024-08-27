@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { AuthCard } from "./auth-card";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterSchema } from "@/types/register-schema";
+import { RegisterSchema } from "@/types/schemas/register-schema";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

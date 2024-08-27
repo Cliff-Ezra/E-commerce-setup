@@ -1,6 +1,6 @@
 "use server";
 
-import { LoginSchema } from "@/types/login-schema";
+import { LoginSchema } from "@/types/schemas/login-schema";
 import { eq } from "drizzle-orm";
 import { createSafeActionClient } from "next-safe-action";
 import { db } from "..";

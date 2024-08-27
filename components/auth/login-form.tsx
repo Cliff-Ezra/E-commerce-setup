@@ -14,11 +14,11 @@ import { Input } from "@/components/ui/input";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSlot
+  InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { cn } from "@/lib/utils";
 import { emailSignIn } from "@/server/actions/email-signin";
-import { LoginSchema } from "@/types/login-schema";
+import { LoginSchema } from "@/types/schemas/login-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";

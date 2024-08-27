@@ -1,6 +1,6 @@
 "use server";
 
-import { ResetSchema } from "@/types/password-reset-schema";
+import { ResetSchema } from "@/types/schemas/password-reset-schema";
 import { createSafeActionClient } from "next-safe-action";
 import { db } from "..";
 import { users } from "../schema";
@@ -26,7 +26,7 @@ export const reset = action(ResetSchema, async ({ email }) => {
       passwordResetToken[0].email,
       passwordResetToken[0].token
     );
-    
+
     return { success: "Password Reset Email Sent" };
   } catch (error) {
     console.log(error);

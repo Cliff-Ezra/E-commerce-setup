@@ -1,6 +1,6 @@
 "use server";
 
-import { RegisterSchema } from "@/types/register-schema";
+import { RegisterSchema } from "@/types/schemas/register-schema";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { createSafeActionClient } from "next-safe-action";

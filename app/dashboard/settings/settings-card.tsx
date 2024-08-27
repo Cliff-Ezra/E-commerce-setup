@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Session } from "next-auth";
-import { SettingsSchema } from "@/types/settings-schema";
+import { SettingsSchema } from "@/types/schemas/settings-schema";
 import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { FormSuccess } from "@/components/auth/form-success";

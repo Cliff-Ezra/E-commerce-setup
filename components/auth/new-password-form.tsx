@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { newPassword } from "@/server/actions/new-password";
-import { NewPasswordSchema } from "@/types/new-password-schema";
+import { NewPasswordSchema } from "@/types/schemas/new-password-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";

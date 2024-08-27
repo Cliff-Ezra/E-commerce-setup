@@ -1,7 +1,7 @@
 "use server";
 
 import bcrypt from "bcrypt";
-import { SettingsSchema } from "@/types/settings-schema";
+import { SettingsSchema } from "@/types/schemas/settings-schema";
 import { createSafeActionClient } from "next-safe-action";
 import { auth } from "../auth";
 import { db } from "..";

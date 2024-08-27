@@ -1,6 +1,6 @@
 "use server";
 
-import { NewPasswordSchema } from "@/types/new-password-schema";
+import { NewPasswordSchema } from "@/types/schemas/new-password-schema";
 import { createSafeActionClient } from "next-safe-action";
 import { getPasswordResetTokenByToken } from "./tokens";
 import { db } from "..";
