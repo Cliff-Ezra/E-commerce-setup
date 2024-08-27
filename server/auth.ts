@@ -26,20 +26,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.isOath = token.isOath as boolean;
+        session.user.image = token.image as string;
       }
+      return session;
     },
     async jwt({ token }) {
       if (!token.sub) return token;
       const existingUser = await db.query.users.findFirst({
         where: eq(users.id, token.sub),
       });
-
       if (!existingUser) return token;
       const existingAccount = await db.query.accounts.findFirst({
         where: eq(accounts.userId, existingUser.id),
       });
 
-      token.isOath = !!existingAccount;
+      token.isOAuth = !!existingAccount;
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
