@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,8 +17,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createProduct } from "@/server/actions/create-product";
 import { ProductSchema } from "@/types/schemas/product-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Tiptap from "./tiptap";
@@ -34,12 +36,23 @@ export default function ProductForm() {
       price: 0,
     },
   });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  //   function onSubmit(values: <zProductSchema>) {
-  //     // Do something with the form values.
-  //     // ✅ This will be type-safe and validated.
-  //     console.log(values);
-  //   }
+  const { execute, status } = useAction(createProduct, {
+    onSuccess(data) {
+      if (data?.success) {
+        console.log(data.success);
+      }
+    },
+    onError: (error) => console.log(error),
+  });
+
+  async function onSubmit(values: z.infer<typeof ProductSchema>) {
+    console.log(values);
+    execute(values);
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -48,7 +61,7 @@ export default function ProductForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={() => console.log("Hey")} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="title"
@@ -97,13 +110,19 @@ export default function ProductForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <Button
+              disabled={
+                status === "executing" ||
+                !form.formState.isValid ||
+                !form.formState.isDirty
+              }
+              type="submit"
+            >
+              Submit
+            </Button>
           </form>
         </Form>
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
     </Card>
   );
 }
