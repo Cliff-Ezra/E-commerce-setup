@@ -17,5 +17,3 @@ export const ProductSchema = z.object({
     .number({ invalid_type_error: "Price must be a number" })
     .positive({ message: "Price must be a positive number" }),
 });
-
-export type zProductSchema = z.infer<typeof ProductSchema>;

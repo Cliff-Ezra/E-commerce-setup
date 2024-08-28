@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,22 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zProductSchema } from "@/types/schemas/product-schema";
+import { ProductSchema } from "@/types/schemas/product-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import Tiptap from "./tiptap";
 
 export default function ProductForm() {
-  const form = useForm<zProductSchema>({
+  const form = useForm<z.infer<typeof ProductSchema>>({
+    resolver: zodResolver(ProductSchema),
     defaultValues: {
       id: 0,
       title: "",
@@ -66,7 +69,7 @@ export default function ProductForm() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    {/* <Input placeholder=" Bleomycin Inj 15iu" {...field} /> */}
+                    <Tiptap val={field.value} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
