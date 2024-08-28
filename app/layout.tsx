@@ -1,10 +1,11 @@
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 
 import Nav from "@/components/navigation/nav";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import Toaster from "@/components/toast/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={cn(`px-6 md:px-12 max-w-7xl mx-auto`, `${inter.className}`)}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <Toaster />
           <Nav />
           {children}
         </ThemeProvider>

@@ -21,10 +21,11 @@ import { createProduct } from "@/server/actions/create-product";
 import { ProductSchema } from "@/types/schemas/product-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Tiptap from "./tiptap";
+import { toast } from "sonner";
 
 export default function ProductForm() {
   const form = useForm<z.infer<typeof ProductSchema>>({
@@ -35,17 +36,29 @@ export default function ProductForm() {
       description: "",
       price: 0,
     },
+    mode: "onChange",
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const router = useRouter();
 
   const { execute, status } = useAction(createProduct, {
     onSuccess(data) {
+      if (data?.error) {
+        toast.error(data.error);
+      }
       if (data?.success) {
-        console.log(data.success);
+        router.push("/dashboard/products");
+        toast.dismiss("creating-product");
+        toast.success(data.success);
       }
     },
-    onError: (error) => console.log(error),
+    onExecute: () => {
+      toast.loading("Creating Product", { id: "creating-product" });
+    },
+    onError: (error) => {
+      toast.dismiss("creating-product"); // Dismiss the loading toast
+      console.log(error);
+      toast.error("An error occurred while creating the product");
+    },
   });
 
   async function onSubmit(values: z.infer<typeof ProductSchema>) {

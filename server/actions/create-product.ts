@@ -35,7 +35,7 @@ export const createProduct = action(
         return { success: `Product ${newProduct[0].title} has been created` };
       }
     } catch (error) {
-      return { error: JSON.stringify(error) };
+      return { error: "Failed to create product" };
     }
   }
 );
