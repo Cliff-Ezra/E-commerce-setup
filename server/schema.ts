@@ -4,6 +4,8 @@ import {
   pgEnum,
   pgTable,
   primaryKey,
+  real,
+  serial,
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
@@ -101,3 +103,11 @@ export const twoFactorTokens = pgTable(
     }),
   })
 );
+
+export const products = pgTable("product", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  price: real("price").notNull(),
+  created: timestamp("created").defaultNow(),
+});
