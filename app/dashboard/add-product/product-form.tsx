@@ -21,11 +21,12 @@ import { createProduct } from "@/server/actions/create-product";
 import { ProductSchema } from "@/types/schemas/product-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Tiptap from "./tiptap";
 import { toast } from "sonner";
+import { getProduct } from "@/server/actions/get-product";
 
 export default function ProductForm() {
   const form = useForm<z.infer<typeof ProductSchema>>({
@@ -39,6 +40,22 @@ export default function ProductForm() {
     mode: "onChange",
   });
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const editMode = searchParams.get("id");
+
+  const checkProduct = async (id: number) => {
+    if (editMode) {
+      const data = await getProduct(id);
+      if (data.data?.error) {
+        toast.error(data.data.error);
+        router.push("/dashboard/products");
+        return
+      }
+      if (data.data?.success) {
+        const id = parseInt(editMode)
+      }
+    }
+  };
 
   const { execute, status } = useAction(createProduct, {
     onSuccess(data) {
