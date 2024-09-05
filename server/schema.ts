@@ -11,7 +11,7 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
 import { createId } from "@paralleldrive/cuid2";
-import { relations } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 
 export const RoleEnum = pgEnum("roles", ["user", "admin"]);
 
@@ -116,7 +116,7 @@ export const products = pgTable("product", {
 export const productVariants = pgTable("product_variant", {
   id: serial("id").primaryKey(),
   color: text("color").notNull(),
-  prodyctType: text("product_type").notNull(),
+  productType: text("product_type").notNull(),
   updated: timestamp("updated").defaultNow(),
   productID: serial("productID")
     .notNull()
@@ -146,6 +146,7 @@ export const variantTags = pgTable("variant_tags", {
     }),
 });
 
+// Product Relations
 export const productRelations = relations(products, ({ many }) => ({
   productVariants: many(productVariants, { relationName: "productVariants" }),
 }));
