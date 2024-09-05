@@ -3,3 +3,7 @@ Quality of Life Improvement Checklist
 [] Make password field viewable
 [] Add confirm password field
 [] Add phone number OTP verification
+
+Bugs
+-- Authentication
+[] During Login, Even with a wrong password a user is able to go to the two factor page and once they enter the code, the error message for incorrect password appears
