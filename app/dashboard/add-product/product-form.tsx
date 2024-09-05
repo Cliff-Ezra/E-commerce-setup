@@ -27,6 +27,7 @@ import { z } from "zod";
 import Tiptap from "./tiptap";
 import { toast } from "sonner";
 import { getProduct } from "@/server/actions/get-product";
+import { useEffect } from "react";
 
 export default function ProductForm() {
   const form = useForm<z.infer<typeof ProductSchema>>({
@@ -45,17 +46,31 @@ export default function ProductForm() {
 
   const checkProduct = async (id: number) => {
     if (editMode) {
-      const data = await getProduct(id);
-      if (data.data?.error) {
-        toast.error(data.data.error);
+      const { data } = await getProduct({ id });
+      if (data?.error) {
+        toast.error(data.error);
         router.push("/dashboard/products");
-        return
+        return;
       }
-      if (data.data?.success) {
-        const id = parseInt(editMode)
+      if (data?.success) {
+        const id = parseInt(editMode);
+        form.setValue("id", id);
+        form.setValue("title", data.success.title);
+        form.setValue("description", data.success.description);
+        form.setValue("price", data.success.price);
       }
     }
   };
+
+  // In the useEffect:
+  useEffect(() => {
+    if (editMode) {
+      const id = parseInt(editMode);
+      if (!isNaN(id)) {
+        checkProduct(id);
+      }
+    }
+  }, []);
 
   const { execute, status } = useAction(createProduct, {
     onSuccess(data) {
@@ -69,7 +84,11 @@ export default function ProductForm() {
       }
     },
     onExecute: () => {
-      toast.loading("Creating Product", { id: "creating-product" });
+      if (editMode) {
+        toast.loading("Editing Product", { id: "creating-product" });
+      } else {
+        toast.loading("Creating Product", { id: "creating-product" });
+      }
     },
     onError: (error) => {
       toast.dismiss("creating-product"); // Dismiss the loading toast
@@ -86,8 +105,12 @@ export default function ProductForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle>{editMode ? "Edit Product" : "Create Product"}</CardTitle>
+        <CardDescription>
+          {editMode
+            ? "Make changes to existing product"
+            : "Add a brand new product"}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -148,7 +171,7 @@ export default function ProductForm() {
               }
               type="submit"
             >
-              Submit
+              {editMode ? "Save Changes" : "Create Product"}
             </Button>
           </form>
         </Form>

@@ -11,6 +11,7 @@ import {
   ListOrdered,
   StrikethroughIcon,
 } from "lucide-react";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 const Tiptap = ({ val }: { val: string }) => {
@@ -50,6 +51,10 @@ const Tiptap = ({ val }: { val: string }) => {
     },
     content: val,
   });
+
+  useEffect(() => {
+    if (editor?.isEmpty) editor.commands.setContent(val);
+  }, [val]);
 
   return (
     <div className="flex flex-col gap-2">
