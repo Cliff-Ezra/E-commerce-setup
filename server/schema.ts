@@ -1,3 +1,5 @@
+import { createId } from "@paralleldrive/cuid2";
+import { relations } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -10,11 +12,10 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
-import { createId } from "@paralleldrive/cuid2";
-import { InferSelectModel, relations } from "drizzle-orm";
 
 export const RoleEnum = pgEnum("roles", ["user", "admin"]);
 
+// Tables
 export const users = pgTable("user", {
   id: text("id")
     .primaryKey()
