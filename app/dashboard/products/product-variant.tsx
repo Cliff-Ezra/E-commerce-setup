@@ -60,7 +60,7 @@ export default function ProductVariant({
   return (
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="lg:max-w-screen-lg overflow-y-scroll max-h-[860px]">
         <DialogHeader>
           <DialogTitle>{editMode ? "Edit" : "Create"} your variant</DialogTitle>
           <DialogDescription>
