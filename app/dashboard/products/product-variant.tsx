@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { VariantSchema } from "@/types/schemas/variant-schema";
 import { Button } from "@/components/ui/button";
+import { InputTags } from "./input-tags";
 
 export default function ProductVariant({
   editMode,
@@ -45,7 +46,7 @@ export default function ProductVariant({
       editMode,
       id: undefined,
       productID,
-      productType: "Cancer Drug",
+      productType: "Cancer Drug Variant",
     },
     mode: "onChange",
   });
@@ -103,7 +104,9 @@ export default function ProductVariant({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Variant Tags</FormLabel>
-                  <FormControl>{/* <InputTags/> */}</FormControl>
+                  <FormControl>
+                    <InputTags {...field} onChange={(e) => field.onChange(e)} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
