@@ -25,6 +25,7 @@ import { z } from "zod";
 import { VariantSchema } from "@/types/schemas/variant-schema";
 import { Button } from "@/components/ui/button";
 import { InputTags } from "./input-tags";
+import VariantImages from "./variant-images";
 
 export default function ProductVariant({
   editMode,
@@ -111,7 +112,7 @@ export default function ProductVariant({
                 </FormItem>
               )}
             />
-            {/* <VariantImages /> */}
+            <VariantImages />
             {editMode && variant && (
               <Button
                 className=""
