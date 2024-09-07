@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { InputTags } from "./input-tags";
 import VariantImages from "./variant-images";
 
-export default function ProductVariant({
+export const ProductVariant = ({
   editMode,
   productID,
   variant,
@@ -37,7 +37,7 @@ export default function ProductVariant({
   productID?: number;
   variant?: VariantsWithImagesTags;
   children: React.ReactNode;
-}) {
+}) => {
   const form = useForm<z.infer<typeof VariantSchema>>({
     resolver: zodResolver(VariantSchema),
     defaultValues: {
@@ -104,7 +104,7 @@ export default function ProductVariant({
               name="tags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Variant Tags</FormLabel>
+                  <FormLabel>Tags</FormLabel>
                   <FormControl>
                     <InputTags {...field} onChange={(e) => field.onChange(e)} />
                   </FormControl>
@@ -130,4 +130,4 @@ export default function ProductVariant({
       </DialogContent>
     </Dialog>
   );
-}
+};

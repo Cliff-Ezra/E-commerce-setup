@@ -22,7 +22,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 import { VariantsWithImagesTags } from "@/lib/infer-types";
-import ProductVariant from "./product-variant";
+import { ProductVariant } from "./product-variant";
 
 type ProductColumn = {
   id: number;
