@@ -14,7 +14,7 @@ export const VariantSchema = z.object({
    * The ID of the variant.
    * @type {number}
    */
-  id: z.number(),
+  id: z.number().optional(),
 
   /**
    * Indicates if the variant is in edit mode.
