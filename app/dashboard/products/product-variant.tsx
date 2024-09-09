@@ -26,6 +26,10 @@ import { VariantSchema } from "@/types/schemas/variant-schema";
 import { Button } from "@/components/ui/button";
 import { InputTags } from "./input-tags";
 import VariantImages from "./variant-images";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
+import { createVariant } from "@/server/actions/create-variant";
+import { useEffect, useState } from "react";
 
 export const ProductVariant = ({
   editMode,
@@ -38,6 +42,8 @@ export const ProductVariant = ({
   variant?: VariantsWithImagesTags;
   children: React.ReactNode;
 }) => {
+  const [open, setOpen] = useState(false);
+
   const form = useForm<z.infer<typeof VariantSchema>>({
     resolver: zodResolver(VariantSchema),
     defaultValues: {
@@ -52,13 +58,70 @@ export const ProductVariant = ({
     mode: "onChange",
   });
 
+  const setEdit = () => {
+    if (!editMode) {
+      form.reset();
+      return;
+    }
+    if (editMode && variant) {
+      form.setValue("editMode", true);
+      form.setValue("id", variant.id);
+      form.setValue("productID", variant.productID);
+      form.setValue("productType", variant.productType);
+      form.setValue("color", variant.color);
+      form.setValue(
+        "tags",
+        variant.variantTags.map((tag) => tag.tag)
+      );
+      form.setValue(
+        "variantImages",
+        variant.variantImages.map((img) => ({
+          name: img.name,
+          size: img.size,
+          url: img.url,
+        }))
+      );
+    }
+  };
+
+  useEffect(() => {
+    setEdit();
+  }, [variant]);
+
+  const { execute, status } = useAction(createVariant, {
+    onExecute() {
+      const toastMessage = editMode ? "Updating variant" : "Creating variant";
+      toast.loading(toastMessage, { id: "variantAction" });
+      setOpen(false);
+    },
+    onSuccess(data) {
+      toast.dismiss("variantAction");
+      if (data?.error) {
+        toast.error(data.error);
+      }
+      if (data?.success) {
+        const successMessage = editMode
+          ? "Variant updated successfully"
+          : data.success;
+        toast.success(successMessage);
+      }
+    },
+    onError(error) {
+      toast.dismiss("variantAction");
+      const errorMessage = editMode
+        ? "An error occurred while updating the variant"
+        : "An error occurred while creating the variant";
+      toast.error(errorMessage);
+    },
+  });
+
   async function onSubmit(values: z.infer<typeof VariantSchema>) {
     console.log(values);
-    // execute(values);
+    execute(values);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent className="lg:max-w-screen-lg overflow-y-scroll max-h-[860px]">
         <DialogHeader>
@@ -113,18 +176,20 @@ export const ProductVariant = ({
               )}
             />
             <VariantImages />
-            {editMode && variant && (
-              <Button
-                className=""
-                type="button"
-                onClick={(e) => e.preventDefault()}
-              >
-                Delete Variant
+            <div className="flex gap-4 items-center justify-center">
+              {editMode && variant && (
+                <Button
+                  variant={"destructive"}
+                  type="button"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Delete Variant
+                </Button>
+              )}
+              <Button type="submit">
+                {editMode ? "Update Variant" : "Create Variant"}
               </Button>
-            )}
-            <Button type="submit">
-              {editMode ? "Update Variant" : "Create Variant"}
-            </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
