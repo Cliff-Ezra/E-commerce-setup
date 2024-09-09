@@ -92,7 +92,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
     cell: ({ row }) => {
       const variants = row.getValue("variants") as VariantsWithImagesTags[];
       return (
-        <div className="">
+        <div className="flex gap-2">
           {variants.map((variant) => (
             <div key={variant.id}>
               <TooltipProvider>
@@ -107,7 +107,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
                         className="w-5 h-5 rounded-full"
                         key={variant.id}
                         style={{ background: variant.color }}
-                      ></div>
+                      />
                     </ProductVariant>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -120,11 +120,11 @@ export const columns: ColumnDef<ProductColumn>[] = [
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <ProductVariant productID={row.original.id} editMode={false}>
-                  <span className="text-primary">
-                    <PlusCircleIcon className="h-4 w-4" />
-                  </span>
-                </ProductVariant>
+                <span>
+                  <ProductVariant productID={row.original.id} editMode={false}>
+                    <PlusCircleIcon className="h-5 w-5" />
+                  </ProductVariant>
+                </span>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Create a new product variant</p>
