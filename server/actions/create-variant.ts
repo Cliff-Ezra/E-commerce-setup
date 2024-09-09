@@ -20,7 +20,7 @@ const client = algoliasearch(
   process.env.ALGOLIA_ADMIN!
 );
 
-// const algoliaIndex = client.initIndex("products");
+const algoliaIndex = client.initIndex("drugs");
 
 export const createVariant = action(
   VariantSchema,
@@ -61,12 +61,12 @@ export const createVariant = action(
             order: idx,
           }))
         );
-        // algoliaIndex.partialUpdateObject({
-        //   objectID: editVariant[0].id.toString(),
-        //   id: editVariant[0].productID,
-        //   productType: editVariant[0].productType,
-        //   variantImages: newImgs[0].url,
-        // });
+        algoliaIndex.partialUpdateObject({
+          objectID: editVariant[0].id.toString(),
+          id: editVariant[0].productID,
+          productType: editVariant[0].productType,
+          variantImages: newImgs[0].url,
+        });
         revalidatePath("/dashboard/products");
         return { success: `Edited ${productType}` };
       }
@@ -97,16 +97,16 @@ export const createVariant = action(
             order: idx,
           }))
         );
-        // if (product) {
-        //   algoliaIndex.saveObject({
-        //     objectID: newVariant[0].id.toString(),
-        //     id: newVariant[0].productID,
-        //     title: product.title,
-        //     price: product.price,
-        //     productType: newVariant[0].productType,
-        //     variantImages: newImgs[0].url,
-        //   });
-        // }
+        if (product) {
+          algoliaIndex.saveObject({
+            objectID: newVariant[0].id.toString(),
+            id: newVariant[0].productID,
+            title: product.title,
+            price: product.price,
+            productType: newVariant[0].productType,
+            variantImages: newImgs[0].url,
+          });
+        }
         revalidatePath("/dashboard/products");
         return { success: `Added ${productType}` };
       }
