@@ -43,7 +43,7 @@
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.8",
-    "embla-carousel-react": "^8.0.4",
+    "embla-carousel-react": "^8.2.1",
     "framer-motion": "^11.3.30",
     "input-otp": "^1.2.4",
     "lottie-react": "^2.4.0",
