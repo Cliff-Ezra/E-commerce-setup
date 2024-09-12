@@ -22,8 +22,8 @@ export default function Products({ variants }: ProductTypes) {
           <Image
             className="rounded-md pb-2"
             src={variant.variantImages[0].url}
-            width={720}
-            height={480}
+            width={500}
+            height={300}
             alt={variant.product.title}
             loading="lazy"
           />
